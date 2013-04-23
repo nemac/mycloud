@@ -6,10 +6,12 @@ sed -e 's/#EnableSendfile off/EnableSendfile off/' < /etc/httpd/conf/httpd.conf 
 mv /tmp/httpd.conf /etc/httpd/conf/httpd.conf
 sed -e '/Deny from all/d' -e 's/Allow from 127.0.0.1/Allow from all/' < /etc/httpd/conf.d/phpmyadmin.conf > /tmp/phpmyadmin.conf
 mv /tmp/phpmyadmin.conf /etc/httpd/conf.d/phpmyadmin.conf
-sed -e 's/$cfg[\'blowfish_secret\'] = \'\'/$cfg[\'blowfish_secret\'] = \'ba17c1ec07d65003\'/' < /usr/share/phpmyadmin/config.inc.php > /tmp/config.inc.php
-mv /tmp/config.inc.php /usr/share/phpmyadmin/config.inc.php
+sed -e "s/''; \\/\\* YOU MUST/'ba17c1ec07d65003'; \\/\\* YOU MUST/" < /usr/share/phpmyadmin/config.inc.php > /tmp/config.inc.php
+cp /tmp/config.inc.php /usr/share/phpmyadmin/config.inc.php
 service httpd restart
 SCRIPT
+
+puts $fix_httpd_conf
 
 Vagrant.configure("2") do |config|
   # All Vagrant configuration is done here. The most common configuration
