@@ -4,6 +4,8 @@
 $fix_httpd_conf = <<SCRIPT
 sed -e 's/#EnableSendfile off/EnableSendfile off/' < /etc/httpd/conf/httpd.conf > /tmp/httpd.conf
 mv /tmp/httpd.conf /etc/httpd/conf/httpd.conf
+sed -e '/Deny from all/d' -e 's/Allow from 127.0.0.1/Allow from all/' < /etc/httpd/conf.d/phpmyadmin.conf > /tmp/phpmyadmin.conf
+mv /tmp/phpmyadmin.conf /etc/httpd/conf.d/phpmyadmin.conf
 service httpd restart
 SCRIPT
 
