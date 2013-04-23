@@ -11,8 +11,6 @@ cp /tmp/config.inc.php /usr/share/phpmyadmin/config.inc.php
 service httpd restart
 SCRIPT
 
-puts $fix_httpd_conf
-
 Vagrant.configure("2") do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
